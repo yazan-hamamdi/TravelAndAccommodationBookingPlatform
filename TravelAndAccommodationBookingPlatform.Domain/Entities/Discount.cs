@@ -6,5 +6,6 @@ public class Discount
     public double DiscountPercentageValue { get; set; }
     public DateTime ValidFrom { get; set; }
     public DateTime ValidTo { get; set; }
+
     public ICollection<RoomDiscount> RoomDiscounts { get; set; }
 }
