@@ -12,7 +12,7 @@ public class User
     public string? PhoneNumber { get; set; }
     public string Salt { get; set; }
 
-    public ICollection<Booking> Bookings { get; set; }
-    public ICollection<Review> Reviews { get; set; }
-    public ICollection<Cart> Carts { get; set; }
+    public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public ICollection<Cart> Carts { get; set; } = new List<Cart>();
 }

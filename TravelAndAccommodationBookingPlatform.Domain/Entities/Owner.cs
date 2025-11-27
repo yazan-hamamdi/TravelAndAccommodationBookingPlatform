@@ -7,5 +7,5 @@ public class Owner
     public string Email { get; set; }
     public string? PhoneNumber { get; set; }
 
-    public ICollection<Hotel> Hotels { get; set; }
+    public ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 }

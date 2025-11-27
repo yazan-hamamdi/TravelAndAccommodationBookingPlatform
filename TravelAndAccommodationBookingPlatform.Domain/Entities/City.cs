@@ -7,5 +7,5 @@ public class City
     public string? PostCode { get; set; }
     public string? ThumbnailUrl { get; set; }
 
-    public ICollection<Hotel> Hotels { get; set; }
+    public ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 }

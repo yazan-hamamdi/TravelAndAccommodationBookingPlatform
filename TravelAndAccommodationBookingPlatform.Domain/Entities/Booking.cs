@@ -8,5 +8,5 @@ public class Booking
 
     public User User { get; set; }
     public Payment Payment { get; set; }
-    public ICollection<BookingDetail> BookingDetails { get; set; }
+    public ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
 }

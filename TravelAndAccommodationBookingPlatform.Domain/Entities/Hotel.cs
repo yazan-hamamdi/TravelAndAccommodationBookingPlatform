@@ -15,6 +15,6 @@ public class Hotel
 
     public City City { get; set; }
     public Owner Owner { get; set; }
-    public ICollection<Room> Rooms { get; set; }
-    public ICollection<Review> Reviews { get; set; }
+    public ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
 }
