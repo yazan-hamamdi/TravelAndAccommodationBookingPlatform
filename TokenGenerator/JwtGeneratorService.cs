@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using TravelAndAccommodationBookingPlatform.Domain.Enums;
-using TravelAndAccommodationBookingPlatform.Domain.Interfaces.Services;
+using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
 
 namespace TokenGenerator;
 public class JwtGeneratorService : ITokenGeneratorService
