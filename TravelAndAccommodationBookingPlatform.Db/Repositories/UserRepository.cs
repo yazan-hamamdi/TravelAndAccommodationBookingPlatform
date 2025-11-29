@@ -28,9 +28,4 @@ public class UserRepository : BaseRepository<User> , IUserRepository
         await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
     }
-
-    public async Task<User> GetUserByIdAsync(Guid userId)
-    {
-        return await _context.Users.FindAsync(userId);
-    }
 }
