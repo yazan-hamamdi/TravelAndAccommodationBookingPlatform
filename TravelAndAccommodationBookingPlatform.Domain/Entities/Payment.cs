@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TravelAndAccommodationBookingPlatform.Domain.Enums;
+﻿using TravelAndAccommodationBookingPlatform.Domain.Enums;
 namespace TravelAndAccommodationBookingPlatform.Domain.Entities;
 public class Payment
 {

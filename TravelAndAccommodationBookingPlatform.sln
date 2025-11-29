@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.API", "TravelAndAccommodationBookingPlatform.API\TravelAndAccommodationBookingPlatform.API.csproj", "{8128A5DB-8DA9-460E-A2D3-1E93B95959D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.API", "TravelAndAccommodationBookingPlatform.API\TravelAndAccommodationBookingPlatform.API.csproj", "{8128A5DB-8DA9-460E-A2D3-1E93B95959D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Db", "TravelAndAccommodationBookingPlatform.Db\TravelAndAccommodationBookingPlatform.Db.csproj", "{3C565705-E66B-4D8B-9849-BA70AFC53EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Db", "TravelAndAccommodationBookingPlatform.Db\TravelAndAccommodationBookingPlatform.Db.csproj", "{3C565705-E66B-4D8B-9849-BA70AFC53EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Domain", "TravelAndAccommodationBookingPlatform.Domain\TravelAndAccommodationBookingPlatform.Domain.csproj", "{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Domain", "TravelAndAccommodationBookingPlatform.Domain\TravelAndAccommodationBookingPlatform.Domain.csproj", "{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{2489E225-FF7A-4B3F-8D3C-46A6181C3283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordHashing", "PasswordHashing\PasswordHashing.csproj", "{79C5650A-7D33-47A2-B61C-574276AD646B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Tests", "TravelAndAccommodationBookingPlatform.Tests\TravelAndAccommodationBookingPlatform.Tests.csproj", "{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2489E225-FF7A-4B3F-8D3C-46A6181C3283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2489E225-FF7A-4B3F-8D3C-46A6181C3283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2489E225-FF7A-4B3F-8D3C-46A6181C3283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2489E225-FF7A-4B3F-8D3C-46A6181C3283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C5650A-7D33-47A2-B61C-574276AD646B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C5650A-7D33-47A2-B61C-574276AD646B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C5650A-7D33-47A2-B61C-574276AD646B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C5650A-7D33-47A2-B61C-574276AD646B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

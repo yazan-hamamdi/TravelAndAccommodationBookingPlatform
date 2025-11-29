@@ -1,0 +1,48 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TravelAndAccommodationBookingPlatform.Db.DbContext;
+using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
+
+namespace TravelAndAccommodationBookingPlatform.Db.Repositories;
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+{
+    private readonly TravelAndAccommodationBookingDbContext _context;
+    private readonly DbSet<T> _dbSet;
+
+    public BaseRepository(TravelAndAccommodationBookingDbContext context)
+    {
+        _context = context;
+        _dbSet = _context.Set<T>();
+    }
+
+    public async Task<T> GetByIdAsync(Guid id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
+    public async Task<List<T>> GetAllAsync()
+    {
+        return await _dbSet.ToListAsync();
+    }
+
+    public async Task AddAsync(T entity)
+    {
+        await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(T entity)
+    {
+        _dbSet.Update(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var existing = await _dbSet.FindAsync(id);
+        if (existing != null)
+        {
+            _dbSet.Remove(existing);
+            await _context.SaveChangesAsync();
+        }
+    }
+}
