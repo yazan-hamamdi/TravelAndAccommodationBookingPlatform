@@ -1,6 +1,4 @@
-﻿namespace TravelAndAccommodationBookingPlatform.Domain.Services
-{
+﻿namespace TravelAndAccommodationBookingPlatform.Domain.Services;
     internal class Class1
     {
     }
-}
