@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PasswordHashing;
 using System.Text;
+using TokenGenerator;
 using TravelAndAccommodationBookingPlatform.API.Controllers;
 using TravelAndAccommodationBookingPlatform.API.Extensions;
 using TravelAndAccommodationBookingPlatform.Db.DbContext;
+using TravelAndAccommodationBookingPlatform.Db.Repositories;
 using TravelAndAccommodationBookingPlatform.Domain.Enums;
+using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
+using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
+using TravelAndAccommodationBookingPlatform.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +50,13 @@ builder.Services.AddAuthorization(options =>
                             c.Type == "Role" &&
                             (c.Value == UserRole.Admin.ToString() || c.Value == UserRole.User.ToString()))));
             });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<ITokenGeneratorService, JwtGeneratorService>();
+builder.Services.AddScoped<IPasswordService, Argon2PasswordService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 var app = builder.Build();
