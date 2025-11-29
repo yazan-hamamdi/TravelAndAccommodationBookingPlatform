@@ -19,19 +19,17 @@ public class JwtGeneratorService : ITokenGeneratorService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string GenerateToken(Guid userId, string username, UserRole role)
+    public async Task<string> GenerateTokenAsync(Guid userId, string username, UserRole role)
     {
-        var key = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:SecretForKey"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:SecretForKey"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var clientIp = _httpContextAccessor?.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim("UserId", userId.ToString()),
             new Claim("Role", role.ToString()),
-            new Claim("ClientIp", clientIp)
         };
 
         var token = new JwtSecurityToken(

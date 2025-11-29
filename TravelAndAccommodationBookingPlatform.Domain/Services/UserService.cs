@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TravelAndAccommodationBookingPlatform.Domain.Exceptions;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
 using TravelAndAccommodationBookingPlatform.Domain.Models.UserDtos;
@@ -20,6 +21,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(userId);
         if (user == null)
         {
+            throw new NotFoundException("User not found");
         }
         return _mapper.Map<UserDto>(user);
     }
