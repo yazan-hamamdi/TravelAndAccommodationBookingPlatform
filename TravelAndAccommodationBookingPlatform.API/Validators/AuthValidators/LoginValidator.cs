@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace TravelAndAccommodationBookingPlatform.API.Validators.AuthValidators;
 
-public class LoginValidator : AbstractValidator<LoginDto>
+public class LoginValidator : GenericValidator<LoginDto>
 {
     public LoginValidator()
     {

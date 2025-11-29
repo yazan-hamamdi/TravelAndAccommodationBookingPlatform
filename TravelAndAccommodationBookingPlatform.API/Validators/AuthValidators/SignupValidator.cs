@@ -2,7 +2,7 @@
 using TravelAndAccommodationBookingPlatform.Domain.Models.UserDtos;
 
 namespace TravelAndAccommodationBookingPlatform.API.Validators.AuthValidators;
-public class SignupValidator : AbstractValidator<SignupDto>
+public class SignupValidator : GenericValidator<SignupDto>
 {
     public SignupValidator()
     {

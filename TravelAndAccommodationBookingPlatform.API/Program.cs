@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TravelAndAccommodationBookingPlatform.API.Controllers;
 using TravelAndAccommodationBookingPlatform.API.Extensions;
 using TravelAndAccommodationBookingPlatform.Db.DbContext;
+using TravelAndAccommodationBookingPlatform.Domain.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,6 +32,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
                 };
             });
+
+builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy =>
+                    policy.RequireClaim("Role", UserRole.Admin.ToString()));
+            
+                options.AddPolicy("UserOrAdmin", policy =>
+                    policy.RequireAssertion(context =>
+                        context.User.HasClaim(c =>
+                            c.Type == "Role" &&
+                            (c.Value == UserRole.Admin.ToString() || c.Value == UserRole.User.ToString()))));
+            });
+
 
 var app = builder.Build();
 
