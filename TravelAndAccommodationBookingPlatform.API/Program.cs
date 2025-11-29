@@ -16,7 +16,7 @@ using TravelAndAccommodationBookingPlatform.Domain.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerWithJwtAuth();
@@ -58,6 +58,7 @@ builder.Services.AddScoped<IPasswordService, Argon2PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

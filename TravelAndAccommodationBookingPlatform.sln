@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordHashing", "PasswordHashing\PasswordHashing.csproj", "{79C5650A-7D33-47A2-B61C-574276AD646B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Tests", "TravelAndAccommodationBookingPlatform.Tests\TravelAndAccommodationBookingPlatform.Tests.csproj", "{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{79C5650A-7D33-47A2-B61C-574276AD646B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79C5650A-7D33-47A2-B61C-574276AD646B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79C5650A-7D33-47A2-B61C-574276AD646B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
