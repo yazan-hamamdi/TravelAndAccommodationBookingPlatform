@@ -5,4 +5,5 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
 public interface IHotelRepository : IBaseRepository<Hotel>
 {
     Task<(IEnumerable<Hotel>, int TotalCount)> SearchHotelsAsync(SearchRequestDto searchRequest, int pageSize, int pageNumber);
+    Task<List<Hotel>> GetFeaturedDealsAsync(int count);
 }
