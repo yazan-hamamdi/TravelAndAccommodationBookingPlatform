@@ -14,29 +14,29 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
         _dbSet = _context.Set<T>();
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    virtual public async Task<T> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task<List<T>> GetAllAsync()
+    virtual public async Task<List<T>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
 
-    public async Task AddAsync(T entity)
+    virtual public async Task AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(T entity)
+    virtual public async Task UpdateAsync(T entity)
     {
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Guid id)
+    virtual public async Task DeleteAsync(Guid id)
     {
         var existing = await _dbSet.FindAsync(id);
         if (existing != null)
