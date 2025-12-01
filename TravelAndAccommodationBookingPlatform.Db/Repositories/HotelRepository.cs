@@ -126,4 +126,11 @@ public class HotelRepository : BaseRepository<Hotel>, IHotelRepository
             })
             .ToListAsync();
     }
+
+    public async Task<(IEnumerable<Hotel> Items, int TotalCount)> GetAllPagedAsync(int pageNumber, int pageSize)
+    {
+        var hotels = _context.Hotels.AsQueryable();
+        var (paginatedHotels, totalCount) = await _paginationService.PaginateAsync(hotels, pageSize, pageNumber);
+        return (paginatedHotels, totalCount);
+    }
 }
