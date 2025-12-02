@@ -34,4 +34,11 @@ public class BookingRepository : BaseRepository<Booking>, IBookingRepository
 
         return hotels;
     }
+
+    public async Task<Booking?> GetBookingWithPaymentByIdAsync(Guid bookingId)
+    {
+        return await _context.Bookings
+            .Include(b => b.Payment)
+            .FirstOrDefaultAsync(b => b.BookingId == bookingId);
+    }
 }
