@@ -1,49 +1,147 @@
-﻿using TravelAndAccommodationBookingPlatform.Domain.Entities;
+﻿using AutoMapper;
+using TravelAndAccommodationBookingPlatform.Domain.Entities;
+using TravelAndAccommodationBookingPlatform.Domain.Exceptions;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
+using TravelAndAccommodationBookingPlatform.Domain.Models.Common;
+using TravelAndAccommodationBookingPlatform.Domain.Models.HotelDtos;
+using TravelAndAccommodationBookingPlatform.Domain.Models.SearchDtos;
 
 namespace TravelAndAccommodationBookingPlatform.Domain.Services;
 public class HotelService : IHotelService
 {
     private readonly IHotelRepository _hotelRepository;
+    private readonly IOwnerRepository _ownerRepository;
+    private readonly ICityRepository _cityRepository;
+    private readonly IMapper _mapper;
 
-    public HotelService(IHotelRepository hotelRepository)
+    public HotelService(IHotelRepository hotelRepository, IOwnerRepository ownerRepository,
+        ICityRepository cityRepository, IMapper mapper)
     {
         _hotelRepository = hotelRepository;
+        _ownerRepository = ownerRepository;
+        _cityRepository = cityRepository;
+        _mapper = mapper;
     }
 
-    public async Task<List<Hotel>> GetFeaturedDealsAsync(int count)
+    public async Task<PaginatedList<HotelSearchResultDto>> SearchHotelsAsync(SearchRequestDto searchRequest, int pageSize, int pageNumber)
     {
-        var hotels = await _hotelRepository.GetHotelsWithDiscountsAsync();
+        var (hotels, totalCount) = await _hotelRepository.SearchHotelsAsync(searchRequest, pageSize, pageNumber);
+        var pageData = new PageData(totalCount, pageSize, pageNumber);
+        var result = _mapper.Map<IEnumerable<HotelSearchResultDto>>(hotels).ToList();
+        return new PaginatedList<HotelSearchResultDto>(result, pageData);
+    }
 
-        var result = hotels
-            .Where(h => h.Rooms.Any(r =>
-                r.Availability == true &&
-                r.RoomDiscounts.Any(rd =>
-                    rd.Discount.ValidFrom <= DateTime.Now &&
-                    rd.Discount.ValidTo >= DateTime.Now
-                )))
-            .OrderBy(x => Guid.NewGuid())
-            .Take(count)
-            .Select(h => new Hotel
+    public async Task<List<FeaturedDealDto>> GetFeaturedDealsAsync(int count)
+    {
+        var hotels = await _hotelRepository.GetFeaturedDealsAsync(count);
+
+        if (!hotels.Any())
+        {
+            throw new NotFoundException("No featured deals found");
+        }
+
+        var now = DateTime.Now;
+
+        var featuredDeals = hotels.Select(hotel =>
+        {
+            var validRooms = hotel.Rooms
+                .Where(r => r.RoomDiscounts.Any(rd => rd.Discount.ValidFrom <= now && rd.Discount.ValidTo >= now));
+
+            var roomWithMaxDiscount = validRooms
+                .Select(r => new
+                {
+                    Room = r,
+                    MaxDiscount = r.RoomDiscounts
+                        .Where(rd => rd.Discount.ValidFrom <= now && rd.Discount.ValidTo >= now)
+                        .Max(rd => rd.Discount.DiscountPercentageValue)
+                })
+                .OrderByDescending(r => r.MaxDiscount)
+                .FirstOrDefault();
+
+            if (roomWithMaxDiscount == null)
             {
-                HotelId = h.HotelId,
-                HotelName = h.HotelName,
-                StarRating = h.StarRating,
-                ThumbnailUrl = h.ThumbnailUrl,
-                Address = h.Address,
-                City = h.City,
-                Rooms = h.Rooms
-                    .Where(r =>
-                        r.Availability == true &&
-                        r.RoomDiscounts.Any(rd =>
-                            rd.Discount.ValidFrom <= DateTime.Now &&
-                            rd.Discount.ValidTo >= DateTime.Now
-                        ))
-                    .ToList()
-            })
+                return null;
+            }
+
+            var dto = _mapper.Map<FeaturedDealDto>(hotel);
+            dto.OriginalPrice = roomWithMaxDiscount.Room.PricePerNight;
+            dto.DiscountedPrice = roomWithMaxDiscount.Room.PricePerNight * (1 - (decimal)roomWithMaxDiscount.MaxDiscount);
+            return dto;
+        })
+            .Where(dto => dto != null)
             .ToList();
 
-        return result;
+        return featuredDeals;
+    }
+
+    public async Task<PaginatedList<HotelDto>> GetAllHotelsAsync(int pageNumber, int pageSize)
+    {
+        var (hotels, totalCount) = await _hotelRepository.GetAllPagedAsync(pageNumber, pageSize);
+        var pageData = new PageData(totalCount, pageSize, pageNumber);
+        var hotelDtos = _mapper.Map<IEnumerable<HotelDto>>(hotels);
+        return new PaginatedList<HotelDto>(hotelDtos.ToList(), pageData);
+    }
+
+    public async Task<HotelDto> GetHotelByIdAsync(Guid hotelId)
+    {
+        var hotel = await _hotelRepository.GetByIdAsync(hotelId);
+        if (hotel == null)
+        {
+            throw new NotFoundException("Hotel not found.");
+        }
+        return _mapper.Map<HotelDto>(hotel);
+    }
+
+    public async Task CreateHotelAsync(CreateHotelDto hotelDto)
+    {
+        var owner = await _ownerRepository.GetByIdAsync(hotelDto.OwnerId);
+        if (owner == null)
+        {
+            throw new NotFoundException("Owner not found.");
+        }
+        var city = await _cityRepository.GetByIdAsync(hotelDto.CityId);
+        if (city == null)
+        {
+            throw new NotFoundException("City not found.");
+        }
+        var hotel = _mapper.Map<Hotel>(hotelDto);
+        await _hotelRepository.AddAsync(hotel);
+    }
+
+    public async Task UpdateHotelAsync(Guid hotelId, UpdateHotelDto hotelDto)
+    {
+        var hotel = await _hotelRepository.GetByIdAsync(hotelId);
+        if (hotel == null)
+        {
+            throw new NotFoundException("Hotel not found.");
+        }
+        var owner = await _ownerRepository.GetByIdAsync(hotelDto.OwnerId);
+        if (owner == null)
+        {
+            throw new NotFoundException("Owner not found.");
+        }
+        var city = await _cityRepository.GetByIdAsync(hotelDto.CityId);
+        if (city == null)
+        {
+            throw new NotFoundException("City not found.");
+        }
+        _mapper.Map(hotelDto, hotel);
+        await _hotelRepository.UpdateAsync(hotel);
+    }
+
+    public async Task DeleteHotelAsync(Guid hotelId)
+    {
+        await _hotelRepository.DeleteAsync(hotelId);
+    }
+
+    public async Task<HotelDetailedDto> GetHotelByIdWithRoomsAsync(Guid hotelId)
+    {
+        var hotel = await _hotelRepository.GetHotelByIdWithRoomsAsync(hotelId);
+        if (hotel == null)
+        {
+            throw new NotFoundException("Hotel not found.");
+        }
+        return _mapper.Map<HotelDetailedDto>(hotel);
     }
 }
