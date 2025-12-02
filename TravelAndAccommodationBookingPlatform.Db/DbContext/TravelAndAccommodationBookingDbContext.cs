@@ -16,6 +16,7 @@ public class TravelAndAccommodationBookingDbContext : Microsoft.EntityFrameworkC
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Owner> Owners { get; set; }
     public DbSet<Image> Images { get; set; }
+    public DbSet<BookingDetail> BookingDetails { get; set; }
 
     public TravelAndAccommodationBookingDbContext(DbContextOptions<TravelAndAccommodationBookingDbContext> options) : base(options)
     {
