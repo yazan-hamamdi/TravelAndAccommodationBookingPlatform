@@ -1,4 +1,4 @@
-﻿namespace TravelAndAccommodationBookingPlatform.Domain.Models.Common
+﻿namespace TravelAndAccommodationBookingPlatform.Domain.Models.Common;
 public class PaginatedList<T>
 {
     public List<T> Items { get; set; }
