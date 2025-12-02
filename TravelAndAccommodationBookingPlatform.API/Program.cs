@@ -57,6 +57,9 @@ builder.Services.AddScoped<ITokenGeneratorService, JwtGeneratorService>();
 builder.Services.AddScoped<IPasswordService, Argon2PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+builder.Services.AddScoped<IHotelService, HotelService>();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
