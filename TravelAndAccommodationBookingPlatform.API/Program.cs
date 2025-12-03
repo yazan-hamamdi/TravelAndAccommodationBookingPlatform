@@ -2,11 +2,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PasswordHashing;
+using PaymentGateway;
+using PayPal.Api;
 using System.Text;
 using TokenGenerator;
 using TravelAndAccommodationBookingPlatform.API.Controllers;
 using TravelAndAccommodationBookingPlatform.API.Extensions;
 using TravelAndAccommodationBookingPlatform.Db.DbContext;
+using TravelAndAccommodationBookingPlatform.Db.DbServices;
 using TravelAndAccommodationBookingPlatform.Db.Repositories;
 using TravelAndAccommodationBookingPlatform.Domain.Enums;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IRepositories;
@@ -51,6 +54,20 @@ builder.Services.AddAuthorization(options =>
                             (c.Value == UserRole.Admin.ToString() || c.Value == UserRole.User.ToString()))));
             });
 
+builder.Services.AddSingleton<APIContext>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var config = new Dictionary<string, string>
+            {
+                { "clientId", Environment.GetEnvironmentVariable("PAYPAL_CLIENT_ID") },
+                { "clientSecret", Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET") },
+                { "mode", configuration["paypal:Mode"] }
+            };
+
+    var accessToken = new OAuthTokenCredential(config).GetAccessToken();
+    return new APIContext(accessToken) { Config = config };
+});
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<ITokenGeneratorService, JwtGeneratorService>();
@@ -59,6 +76,18 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IPaginationService, PaginationService>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentGatewayService, PayPalGatewayService>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
