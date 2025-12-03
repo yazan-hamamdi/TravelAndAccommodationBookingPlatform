@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBooki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Domain", "TravelAndAccommodationBookingPlatform.Domain\TravelAndAccommodationBookingPlatform.Domain.csproj", "{37DDB2F2-0DE4-4EF6-8E59-AF378723EF3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{2489E225-FF7A-4B3F-8D3C-46A6181C3283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{2489E225-FF7A-4B3F-8D3C-46A6181C3283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordHashing", "PasswordHashing\PasswordHashing.csproj", "{79C5650A-7D33-47A2-B61C-574276AD646B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasswordHashing", "PasswordHashing\PasswordHashing.csproj", "{79C5650A-7D33-47A2-B61C-574276AD646B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Tests", "TravelAndAccommodationBookingPlatform.Tests\TravelAndAccommodationBookingPlatform.Tests.csproj", "{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Tests", "TravelAndAccommodationBookingPlatform.Tests\TravelAndAccommodationBookingPlatform.Tests.csproj", "{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGateway", "PaymentGateway\PaymentGateway.csproj", "{C7AAE982-533B-439C-B6B1-2C4B776575B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8105CA0-FA60-4AC8-8FB6-1CE755E34601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AAE982-533B-439C-B6B1-2C4B776575B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AAE982-533B-439C-B6B1-2C4B776575B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AAE982-533B-439C-B6B1-2C4B776575B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AAE982-533B-439C-B6B1-2C4B776575B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
