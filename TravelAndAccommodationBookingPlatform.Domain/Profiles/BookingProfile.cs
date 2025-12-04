@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TravelAndAccommodationBookingPlatform.Domain.Entities;
+using TravelAndAccommodationBookingPlatform.Domain.Models.BookingDtos;
 
 namespace TravelAndAccommodationBookingPlatform.Domain.Profiles;
 public class BookingProfile : Profile

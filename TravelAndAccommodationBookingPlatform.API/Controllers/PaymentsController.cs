@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TravelAndAccommodationBookingPlatform.API.Validators.PaymentValidators;
 using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
 using TravelAndAccommodationBookingPlatform.Domain.Models.PaymentDtos;
 
