@@ -88,6 +88,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IPaginationService, PaginationService>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentGatewayService, PayPalGatewayService>();
+builder.Services.AddScoped<IEmailService, EmailService.PaymentSuccessfulEmailService>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
