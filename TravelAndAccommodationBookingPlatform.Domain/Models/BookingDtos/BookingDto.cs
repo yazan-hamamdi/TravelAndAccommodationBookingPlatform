@@ -1,4 +1,5 @@
-﻿using TravelAndAccommodationBookingPlatform.Domain.Models.UserDtos;
+﻿using TravelAndAccommodationBookingPlatform.Domain.Models.BookingDetailDtos;
+using TravelAndAccommodationBookingPlatform.Domain.Models.UserDtos;
 
 namespace TravelAndAccommodationBookingPlatform.Domain.Models.BookingDtos;
 public class BookingDto

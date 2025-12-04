@@ -1,3 +1,4 @@
+using InvoiceGenerator;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -88,6 +89,10 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IPaginationService, PaginationService>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentGatewayService, PayPalGatewayService>();
+builder.Services.AddScoped<IEmailService, EmailService.PaymentSuccessfulEmailService>();
+builder.Services.AddScoped<IInvoiceService, InvoicePDFService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
