@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using PasswordHashing;
 using PaymentGateway;
 using PayPal.Api;
+using QuestPDF.Infrastructure;
 using System.Text;
 using TokenGenerator;
 using TravelAndAccommodationBookingPlatform.API.Controllers;
@@ -19,6 +20,8 @@ using TravelAndAccommodationBookingPlatform.Domain.Interfaces.IServices;
 using TravelAndAccommodationBookingPlatform.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
 builder.Services.AddHttpContextAccessor();
