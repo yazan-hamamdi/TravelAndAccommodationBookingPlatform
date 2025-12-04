@@ -9,6 +9,7 @@ using System.Text;
 using TokenGenerator;
 using TravelAndAccommodationBookingPlatform.API.Controllers;
 using TravelAndAccommodationBookingPlatform.API.Extensions;
+using TravelAndAccommodationBookingPlatform.API.Middlewares;
 using TravelAndAccommodationBookingPlatform.Db.DbContext;
 using TravelAndAccommodationBookingPlatform.Db.DbServices;
 using TravelAndAccommodationBookingPlatform.Db.Repositories;
@@ -107,9 +108,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthentication();
+app.UseMiddleware<TokenIpValidationMiddleware>();
 app.UseAuthorization();
-
-app.MapControllers();
-
+app.UseMiddleware<CustomExceptionHandlingMiddleware>();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();
+
