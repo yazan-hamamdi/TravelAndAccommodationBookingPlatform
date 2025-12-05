@@ -23,7 +23,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 QuestPDF.Settings.License = LicenseType.Community;
 
-builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -72,6 +71,8 @@ builder.Services.AddSingleton<APIContext>(provider =>
     var accessToken = new OAuthTokenCredential(config).GetAccessToken();
     return new APIContext(accessToken) { Config = config };
 });
+builder.Services.AddControllers().AddApplicationPart(typeof(AuthController).Assembly);
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
@@ -114,7 +115,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseMiddleware<TokenIpValidationMiddleware>();
 app.UseAuthorization();
 app.UseMiddleware<CustomExceptionHandlingMiddleware>();
 app.UseEndpoints(endpoints =>
