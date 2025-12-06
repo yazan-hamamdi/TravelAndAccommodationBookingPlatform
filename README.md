@@ -1,4 +1,5 @@
-# Travel and Accommodation Booking Platform API [![build and test](https://github.com/yazan-hamamdi/TravelAndAccommodationBookingPlatform/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/yazan-hamamdi/TravelAndAccommodationBookingPlatform/actions/workflows/build-and-test.yml)
+[![build and test](https://github.com/yazan-hamamdi/TravelAndAccommodationBookingPlatform/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/yazan-hamamdi/TravelAndAccommodationBookingPlatform/actions/workflows/build-and-test.yml)
+# Travel and Accommodation Booking Platform API 
 
 This API provides a comprehensive set of endpoints for managing hotel bookings, user authentication, hotels, cities, rooms, reviews, and payments. It is designed for efficiency, scalability, and maintainability.
 
